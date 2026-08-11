@@ -28,12 +28,17 @@ export function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="fixed top-0 right-0 bottom-0 w-full max-w-md bg-surface border-l border-white/10 z-[70] flex flex-col"
+            className="fixed top-0 right-0 bottom-0 w-full max-w-md bg-surface border-l border-white/10 z-[70] flex flex-col shadow-2xl shadow-black/50"
           >
-            <div className="flex items-center justify-between p-6 border-b border-white/10">
-              <h2 className="text-lg font-bold tracking-wider uppercase">
-                Your Cart
-              </h2>
+            <div className="flex items-center justify-between p-6 border-b border-white/10 bg-surface-light">
+              <div>
+                <h2 className="text-sm font-black tracking-[0.15em] uppercase text-white">
+                  Your Cart
+                </h2>
+                <p className="text-[10px] text-white/35 mt-0.5 tracking-wider uppercase">
+                  {items.length} {items.length === 1 ? "item" : "items"}
+                </p>
+              </div>
               <button
                 onClick={closeCart}
                 className="p-2 text-white/60 hover:text-white transition-colors"
@@ -131,7 +136,7 @@ export function CartDrawer() {
                 <Link
                   href="/contact"
                   onClick={closeCart}
-                  className="block w-full py-3.5 bg-gold text-black text-center text-sm font-bold tracking-wider uppercase rounded-lg hover:bg-gold/90 transition-colors"
+                  className="block w-full py-4 gold-gradient text-black text-center text-[11px] font-black tracking-[0.15em] uppercase rounded-sm hover:opacity-90 transition-opacity"
                 >
                   Inquire / Order
                 </Link>

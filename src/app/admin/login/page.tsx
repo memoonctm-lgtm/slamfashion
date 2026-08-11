@@ -36,7 +36,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-16">
+    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-16 pt-[120px]">
       <div className="absolute inset-0 bg-gradient-to-b from-surface to-black -z-10" />
 
       <motion.div

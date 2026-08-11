@@ -28,23 +28,30 @@ export function PillarCard({ pillar, index }: PillarCardProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -4 }}
-      className="group relative p-6 lg:p-8 bg-surface rounded-xl border border-white/5 hover:border-gold/30 transition-all duration-300"
+      transition={{ duration: 0.6, delay: index * 0.08 }}
+      className="group relative"
     >
-      <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-gold/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-      <div className="w-12 h-12 rounded-lg bg-gold/10 flex items-center justify-center mb-4 group-hover:bg-gold/20 transition-colors">
-        <Icon className="w-6 h-6 text-gold" />
+      <div className="relative h-full p-6 lg:p-8 bg-surface-light border border-white/5 hover:border-gold/30 rounded-sm transition-all duration-500 card-shine overflow-hidden">
+        <span className="absolute top-4 right-4 text-5xl font-black text-white/[0.03] group-hover:text-gold/[0.06] transition-colors select-none">
+          0{index + 1}
+        </span>
+
+        <div className="absolute top-0 left-0 w-full h-px gold-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+        <div className="w-14 h-14 rounded-sm gold-gradient flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
+          <Icon className="w-7 h-7 text-black" />
+        </div>
+
+        <h3 className="text-lg font-black text-white mb-3 tracking-wide group-hover:text-gold transition-colors duration-300">
+          {pillar.title}
+        </h3>
+        <p className="text-sm text-white/45 leading-relaxed">
+          {pillar.description}
+        </p>
       </div>
-      <h3 className="text-lg font-bold text-white mb-2 tracking-wide">
-        {pillar.title}
-      </h3>
-      <p className="text-sm text-white/50 leading-relaxed">
-        {pillar.description}
-      </p>
     </motion.div>
   );
 }

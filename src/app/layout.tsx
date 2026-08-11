@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "@/context/Providers";
-import { Navbar } from "@/components/Navbar";
+import { SiteHeader } from "@/components/SiteHeader";
 import { StoreFooter } from "@/components/StoreFooter";
 
 export const metadata: Metadata = {
@@ -22,8 +22,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className="h-full">
       <body className="min-h-full flex flex-col antialiased">
         <Providers>
-          <Navbar />
-          <main className="flex-1 pt-16 lg:pt-20">{children}</main>
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
           <StoreFooter />
         </Providers>
       </body>

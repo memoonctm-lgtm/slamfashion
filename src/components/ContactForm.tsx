@@ -65,7 +65,7 @@ export function ContactForm({ email, phone }: ContactFormProps) {
             required
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="w-full px-4 py-3 bg-surface-light border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-gold/50 transition-colors"
+            className="w-full px-4 py-3 bg-surface-light border border-white/10 rounded-sm text-white text-sm focus:outline-none focus:border-gold/50 transition-colors"
             placeholder="Your name"
           />
         </div>
@@ -78,7 +78,7 @@ export function ContactForm({ email, phone }: ContactFormProps) {
             required
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="w-full px-4 py-3 bg-surface-light border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-gold/50 transition-colors"
+            className="w-full px-4 py-3 bg-surface-light border border-white/10 rounded-sm text-white text-sm focus:outline-none focus:border-gold/50 transition-colors"
             placeholder="your@email.com"
           />
         </div>
@@ -92,7 +92,7 @@ export function ContactForm({ email, phone }: ContactFormProps) {
             type="tel"
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
-            className="w-full px-4 py-3 bg-surface-light border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-gold/50 transition-colors"
+            className="w-full px-4 py-3 bg-surface-light border border-white/10 rounded-sm text-white text-sm focus:outline-none focus:border-gold/50 transition-colors"
             placeholder="(555) 123-4567"
           />
         </div>
@@ -104,7 +104,7 @@ export function ContactForm({ email, phone }: ContactFormProps) {
             type="text"
             value={form.subject}
             onChange={(e) => setForm({ ...form, subject: e.target.value })}
-            className="w-full px-4 py-3 bg-surface-light border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-gold/50 transition-colors"
+            className="w-full px-4 py-3 bg-surface-light border border-white/10 rounded-sm text-white text-sm focus:outline-none focus:border-gold/50 transition-colors"
             placeholder="Custom order, inquiry..."
           />
         </div>
@@ -124,7 +124,7 @@ export function ContactForm({ email, phone }: ContactFormProps) {
       </div>
       <button
         type="submit"
-        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-gold text-black text-sm font-bold tracking-wider uppercase rounded-lg hover:bg-gold/90 transition-colors"
+        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 gold-gradient text-black text-[11px] font-black tracking-[0.15em] uppercase rounded-sm hover:opacity-90 transition-opacity"
       >
         <Send className="w-4 h-4" />
         Send Inquiry
