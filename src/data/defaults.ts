@@ -108,7 +108,7 @@ export const DEFAULT_SETTINGS: StoreSettings = {
       "Strength through submission. Built for men who lead with faith and live with integrity.",
     heroCta: "Explore Collection",
     heroImage:
-      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1400&q=80",
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=1400&q=80",
     essenceTitle: "Strength. Humility. Discipline. Purpose.",
     essenceText:
       "S.L.A.M. stands for strength through submission. It's a mindset of humility, discipline, and purpose.",

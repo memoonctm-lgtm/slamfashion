@@ -60,10 +60,10 @@ export default function HomePage() {
               />
               <Image
                 src={brandCopy.heroImage}
-                alt="S.L.A.M. activewear hero"
+                alt="S.L.A.M. premium t-shirt collection"
                 fill
                 unoptimized
-                className="object-cover object-top z-[2]"
+                className="object-cover object-center z-[2]"
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 priority
               />

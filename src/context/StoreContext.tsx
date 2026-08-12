@@ -37,7 +37,11 @@ interface StoreContextValue {
 
 const StoreContext = createContext<StoreContextValue | null>(null);
 
-const BROKEN_HERO_IMAGE_IDS = ["c89c272b14cd"];
+const INVALID_HERO_IMAGE_IDS = [
+  "c89c272b14cd",
+  "1517836357463-d25dfeac3438",
+  "1556821840-3a63f95609a7",
+];
 
 function mergeBrandCopy(stored?: Partial<BrandCopy>): BrandCopy {
   const merged = { ...DEFAULT_SETTINGS.brandCopy, ...stored };
@@ -45,7 +49,7 @@ function mergeBrandCopy(stored?: Partial<BrandCopy>): BrandCopy {
 
   if (
     !heroImage ||
-    BROKEN_HERO_IMAGE_IDS.some((id) => heroImage.includes(id))
+    INVALID_HERO_IMAGE_IDS.some((id) => heroImage.includes(id))
   ) {
     merged.heroImage = DEFAULT_SETTINGS.brandCopy.heroImage;
   }
