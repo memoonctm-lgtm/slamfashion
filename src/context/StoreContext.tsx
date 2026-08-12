@@ -37,6 +37,22 @@ interface StoreContextValue {
 
 const StoreContext = createContext<StoreContextValue | null>(null);
 
+const BROKEN_HERO_IMAGE_IDS = ["c89c272b14cd"];
+
+function mergeBrandCopy(stored?: Partial<BrandCopy>): BrandCopy {
+  const merged = { ...DEFAULT_SETTINGS.brandCopy, ...stored };
+  const heroImage = merged.heroImage?.trim();
+
+  if (
+    !heroImage ||
+    BROKEN_HERO_IMAGE_IDS.some((id) => heroImage.includes(id))
+  ) {
+    merged.heroImage = DEFAULT_SETTINGS.brandCopy.heroImage;
+  }
+
+  return merged;
+}
+
 function loadSettings(): StoreSettings {
   if (typeof window === "undefined") return DEFAULT_SETTINGS;
   try {
@@ -46,7 +62,7 @@ function loadSettings(): StoreSettings {
       return {
         ...DEFAULT_SETTINGS,
         ...parsed,
-        brandCopy: { ...DEFAULT_SETTINGS.brandCopy, ...parsed.brandCopy },
+        brandCopy: mergeBrandCopy(parsed.brandCopy),
         contact: { ...DEFAULT_SETTINGS.contact, ...parsed.contact },
         theme: { ...DEFAULT_SETTINGS.theme, ...parsed.theme },
         products: parsed.products?.length ? parsed.products : DEFAULT_SETTINGS.products,

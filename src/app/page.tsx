@@ -7,6 +7,7 @@ import { ArrowRight } from "lucide-react";
 import { PageShell } from "@/components/PageShell";
 import { ShopCatalogCard } from "@/components/ShopCatalogCard";
 import { PillarIconCard } from "@/components/PillarIconCard";
+import { Monogram } from "@/components/Logo";
 import { useStore } from "@/context/StoreContext";
 
 export default function HomePage() {
@@ -15,49 +16,62 @@ export default function HomePage() {
 
   return (
     <PageShell>
-      {/* Hero */}
-      <section className="relative min-h-[calc(100vh-104px)] flex items-center border-b border-template overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=1920&q=80"
-            alt=""
-            fill
-            className="object-cover opacity-25"
-            priority
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/95 to-black/70" />
-        </div>
-        <div className="relative max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-20 lg:py-32 w-full">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="max-w-3xl"
-          >
-            <p className="label-caps text-gold mb-6">S.L.A.M. Activewear</p>
-            <h1 className="heading-xl text-4xl sm:text-5xl lg:text-7xl text-white">
-              {brandCopy.heroHeadline}
-            </h1>
-            <p className="mt-8 text-lg text-muted leading-relaxed max-w-xl">
-              {brandCopy.heroSubheadline}
-            </p>
-            <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/shop"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 btn-gold text-xs rounded-sm"
+      {/* Hero — split layout with visible image panel */}
+      <section className="border-b border-template bg-black">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[520px] lg:min-h-[calc(100vh-104px)]">
+            <div className="flex flex-col justify-center px-8 sm:px-12 lg:px-16 xl:px-20 py-14 lg:py-20">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7 }}
+                className="max-w-xl"
               >
-                {brandCopy.heroCta}
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="/collections"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-template text-white text-xs font-bold tracking-[0.15em] uppercase rounded-sm hover:border-gold/40 transition-colors"
-              >
-                View Collections
-              </Link>
+                <p className="label-caps text-gold mb-6">S.L.A.M. Activewear</p>
+                <h1 className="heading-xl text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white">
+                  {brandCopy.heroHeadline}
+                </h1>
+                <p className="mt-8 text-lg text-muted leading-relaxed">
+                  {brandCopy.heroSubheadline}
+                </p>
+                <div className="mt-10 flex flex-col sm:flex-row gap-4">
+                  <Link
+                    href="/shop"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 btn-gold text-xs rounded-sm"
+                  >
+                    {brandCopy.heroCta}
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <Link
+                    href="/collections"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-template text-white text-xs font-bold tracking-[0.15em] uppercase rounded-sm hover:border-gold/40 transition-colors"
+                  >
+                    View Collections
+                  </Link>
+                </div>
+              </motion.div>
             </div>
-          </motion.div>
+
+            <div className="relative min-h-[360px] lg:min-h-0 bg-[#0A0A0A] overflow-hidden">
+              <Monogram
+                size={400}
+                variant="watermark"
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 opacity-100 pointer-events-none z-[1]"
+              />
+              <Image
+                src={brandCopy.heroImage}
+                alt="S.L.A.M. activewear hero"
+                fill
+                unoptimized
+                className="object-cover object-top z-[2]"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
+              <div
+                className="absolute inset-0 z-[3] bg-gradient-to-r from-black via-black/50 to-transparent lg:from-black lg:via-black/30 lg:to-transparent"
+              />
+            </div>
+          </div>
         </div>
       </section>
 

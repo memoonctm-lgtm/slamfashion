@@ -65,6 +65,7 @@ export interface BrandCopy {
   heroHeadline: string;
   heroSubheadline: string;
   heroCta: string;
+  heroImage: string;
   essenceTitle: string;
   essenceText: string;
   aboutHeroTitle: string;
