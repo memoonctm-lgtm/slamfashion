@@ -51,6 +51,13 @@ function loadSettings(): StoreSettings {
         theme: { ...DEFAULT_SETTINGS.theme, ...parsed.theme },
         products: parsed.products?.length ? parsed.products : DEFAULT_SETTINGS.products,
         pillars: parsed.pillars?.length ? parsed.pillars : DEFAULT_SETTINGS.pillars,
+        coreValues: parsed.coreValues?.length
+          ? parsed.coreValues.map((v, i) => ({
+              ...DEFAULT_SETTINGS.coreValues[i],
+              ...v,
+            }))
+          : DEFAULT_SETTINGS.coreValues,
+        collections: parsed.collections?.length ? parsed.collections : DEFAULT_SETTINGS.collections,
       };
     }
   } catch {

@@ -1,206 +1,195 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { Scissors, Layers, Stamp, Cross, Target, Users } from "lucide-react";
-import { PageHero } from "@/components/PageHero";
-import { SectionHeader } from "@/components/SectionHeader";
-import { Button } from "@/components/Button";
+import { PageShell } from "@/components/PageShell";
+import { Monogram } from "@/components/Logo";
+import { PillarIcon } from "@/components/about/PillarIcons";
 import { useStore } from "@/context/StoreContext";
+import type { BrandPillar } from "@/types";
 
-const qualityFeatures = [
-  {
-    icon: Scissors,
-    title: "Premium Embroidery",
-    description:
-      "Every S.L.A.M. logo is meticulously embroidered with premium thread for a raised, textured finish that withstands countless washes.",
-  },
-  {
-    icon: Layers,
-    title: "Woven Patch Detail",
-    description:
-      "Select pieces feature custom woven patches with intricate gold threading — a hallmark of luxury streetwear craftsmanship.",
-  },
-  {
-    icon: Stamp,
-    title: "Rubber Patch Accents",
-    description:
-      "Bold rubber patch detailing on hoodies and accessories delivers a tactile, premium feel that sets S.L.A.M. apart.",
-  },
-];
+function GoldLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-[11px] font-bold tracking-[0.28em] uppercase text-gold mb-5">
+      {children}
+    </p>
+  );
+}
 
-const values = [
-  {
-    icon: Cross,
-    title: "Faith First",
-    text: "Everything we create starts with a foundation of faith and purpose.",
-  },
-  {
-    icon: Target,
-    title: "Disciplined Design",
-    text: "Every detail is intentional — from fabric selection to final stitch.",
-  },
-  {
-    icon: Users,
-    title: "Community Built",
-    text: "More than a brand — a brotherhood of men who lead with integrity.",
-  },
-];
+function PillarListItem({ pillar }: { pillar: BrandPillar }) {
+  return (
+    <div className="flex gap-4 py-5 border-b border-template last:border-b-0">
+      <div className="shrink-0 w-10 h-10 flex items-center justify-center border border-gold/30 rounded-sm">
+        <PillarIcon icon={pillar.icon} className="w-5 h-5 text-gold" />
+      </div>
+      <div>
+        <h3 className="text-[11px] font-black tracking-[0.14em] uppercase text-gold leading-snug">
+          {pillar.title}
+        </h3>
+        <p className="mt-1.5 text-sm text-muted leading-relaxed">
+          {pillar.description}
+        </p>
+      </div>
+    </div>
+  );
+}
 
 export default function AboutPage() {
   const { settings } = useStore();
-  const { brandCopy } = settings;
+  const { brandCopy, pillars, coreValues } = settings;
+
+  const storyParagraphs = brandCopy.founderStory
+    .split("\n")
+    .map((p) => p.trim())
+    .filter(Boolean);
 
   return (
-    <>
-      <div className="pt-[104px] lg:pt-[112px]">
-        <PageHero
-          eyebrow="About S.L.A.M."
-          title={brandCopy.aboutTitle}
-          description="Strength. Humility. Discipline. Purpose."
-          image="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1920&q=80"
-        />
-      </div>
-
-      <section className="py-24 lg:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="relative aspect-[4/5] rounded-sm overflow-hidden border border-white/10">
-                <Image
-                  src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80"
-                  alt="S.L.A.M. apparel"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-              </div>
-              <div className="absolute -bottom-6 -right-6 w-48 h-48 border border-gold/20 rounded-sm -z-10" />
-              <div className="absolute -top-6 -left-6 w-32 h-32 border border-gold/10 rounded-sm -z-10" />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              <SectionHeader
-                eyebrow="Our Story"
-                title="Born From Conviction"
-                align="left"
-                className="max-w-none mb-0"
-              />
-              <p className="text-white/55 leading-relaxed text-lg">
-                {brandCopy.aboutStory}
-              </p>
-              <p className="text-white/55 leading-relaxed">
-                {brandCopy.aboutMission}
-              </p>
-              <div className="p-6 bg-surface border border-gold/20 rounded-sm border-l-2 border-l-gold">
-                <p className="text-gold font-black tracking-wider uppercase text-sm">
-                  Built for Men of Faith
-                </p>
-                <p className="text-white/45 text-sm mt-2 leading-relaxed">
-                  S.L.A.M. is more than clothing — it&apos;s a declaration of
-                  identity for men who choose humility over ego, discipline over
-                  distraction, and purpose over pleasure.
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-surface border-y border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {values.map((v, i) => (
-              <motion.div
-                key={v.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="text-center p-8"
-              >
-                <div className="w-14 h-14 mx-auto rounded-sm gold-gradient flex items-center justify-center mb-5">
-                  <v.icon className="w-7 h-7 text-black" />
-                </div>
-                <h3 className="text-lg font-black text-white mb-2">
-                  {v.title}
-                </h3>
-                <p className="text-sm text-white/45 leading-relaxed">{v.text}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 lg:py-32 relative">
-        <div className="absolute inset-0 mesh-bg opacity-30" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            eyebrow="Craftsmanship"
-            title="Quality You Can Feel"
-            description="Every piece is crafted with the same attention to detail you'd expect from luxury streetwear."
-            className="mb-16"
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {qualityFeatures.map((feature, i) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group p-8 bg-surface-light border border-white/5 hover:border-gold/25 rounded-sm transition-all duration-500 card-shine"
-              >
-                <div className="w-12 h-12 rounded-sm bg-gold/10 flex items-center justify-center mb-6 group-hover:bg-gold/20 transition-colors">
-                  <feature.icon className="w-6 h-6 text-gold" />
-                </div>
-                <h3 className="text-lg font-black text-white mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-sm text-white/45 leading-relaxed">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 bg-black border-t border-white/5">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl sm:text-4xl font-black text-white leading-tight">
-              <span className="gold-text">Submit</span> to Purpose.{" "}
-              <span className="gold-text">Live</span> with Power.
-            </h2>
-            <p className="mt-6 text-white/50 text-lg max-w-xl mx-auto">
-              Every stitch, every patch, every detail — crafted for men who
-              understand that true strength begins with submission.
+    <PageShell>
+      {/* ── Hero: split screen ── */}
+      <section className="border-b border-template bg-black">
+        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[480px] lg:min-h-[560px]">
+          {/* Left — copy */}
+          <div className="flex flex-col justify-center px-8 sm:px-12 lg:px-16 xl:px-20 py-14 lg:py-20">
+            <GoldLabel>About S.L.A.M.</GoldLabel>
+            <h1 className="text-[clamp(1.75rem,4vw,3.25rem)] font-black uppercase leading-[1.08] tracking-[0.02em] text-white">
+              {brandCopy.aboutHeroTitle}
+            </h1>
+            <p className="mt-8 text-[15px] sm:text-base text-muted leading-[1.75] max-w-md">
+              {brandCopy.aboutHeroText}
             </p>
-            <div className="mt-10">
-              <Button href="/shop" size="lg">
-                Explore Collection
-              </Button>
-            </div>
-          </motion.div>
+          </div>
+
+          {/* Right — founder portrait */}
+          <div className="relative min-h-[360px] lg:min-h-0 bg-[#0A0A0A]">
+            <Image
+              src={brandCopy.founderImage}
+              alt="Sean Mattier, Founder of S.L.A.M. Activewear"
+              fill
+              className="object-cover object-top"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              priority
+            />
+            {/* Fade into black on the left edge */}
+            <div
+              className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent lg:from-black lg:via-black/40 lg:to-transparent"
+            />
+          </div>
         </div>
       </section>
-    </>
+
+      {/* ── Founder Story + What S.L.A.M. Stands For (side by side) ── */}
+      <section className="border-b border-template bg-black">
+        <div className="max-w-[1400px] mx-auto px-8 sm:px-12 lg:px-16 xl:px-20 py-16 lg:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 xl:gap-28">
+            {/* Left — Founder Story */}
+            <div>
+              <GoldLabel>Founder Story</GoldLabel>
+              <h2 className="text-xl sm:text-2xl lg:text-[1.75rem] font-black uppercase tracking-[0.06em] text-white leading-tight">
+                {brandCopy.founderSectionTitle}
+              </h2>
+              <div className="mt-8 space-y-5">
+                {storyParagraphs.map((paragraph, i) => (
+                  <p
+                    key={i}
+                    className="text-[15px] text-caption leading-[1.8]"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+              <div className="mt-10 pt-8 border-t border-template">
+                <p
+                  className="text-2xl text-white italic"
+                  style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
+                >
+                  {brandCopy.founderName}
+                </p>
+                <p className="mt-2 text-[10px] font-bold tracking-[0.22em] uppercase text-gold">
+                  {brandCopy.founderRole}
+                </p>
+              </div>
+            </div>
+
+            {/* Right — What S.L.A.M. Stands For */}
+            <div>
+              <GoldLabel>What S.L.A.M. Stands For</GoldLabel>
+              <div className="mt-2">
+                {pillars.map((pillar) => (
+                  <PillarListItem key={pillar.id} pillar={pillar} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Our Values horizontal bar ── */}
+      <section className="relative border-b border-template overflow-hidden">
+        {/* Gym background */}
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a55?w=1920&q=80"
+            alt=""
+            fill
+            className="object-cover opacity-25"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-black/85" />
+        </div>
+
+        <div className="relative max-w-[1400px] mx-auto px-8 sm:px-12 lg:px-16 xl:px-20 py-14 lg:py-16">
+          <p className="text-center text-[11px] font-bold tracking-[0.28em] uppercase text-gold mb-10">
+            Our Values
+          </p>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 divide-y sm:divide-y-0 lg:divide-x divide-gold/25 border border-gold/20">
+            {coreValues.map((value) => (
+              <div
+                key={value.id}
+                className="flex flex-col items-center text-center px-4 py-8 lg:py-10"
+              >
+                <div className="w-11 h-11 flex items-center justify-center border border-gold/40 rounded-sm mb-4">
+                  <PillarIcon
+                    icon={value.icon}
+                    className="w-5 h-5 text-gold"
+                  />
+                </div>
+                <h3 className="text-[10px] sm:text-[11px] font-black tracking-[0.12em] uppercase text-white leading-snug">
+                  {value.title}
+                </h3>
+                <p className="mt-2 text-[11px] text-muted leading-relaxed max-w-[140px]">
+                  {value.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Diagonal pre-footer CTA ── */}
+      <section className="relative flex min-h-[180px] sm:min-h-[220px] overflow-hidden">
+        {/* Black left panel */}
+        <div
+          className="relative z-10 flex items-center gap-6 sm:gap-10 bg-black px-8 sm:px-12 lg:px-16 xl:px-20 py-12 w-full sm:w-[62%]"
+          style={{
+            clipPath: "polygon(0 0, 100% 0, 88% 100%, 0 100%)",
+          }}
+        >
+          <Monogram size={72} className="shrink-0 hidden sm:block" />
+          <Monogram size={52} className="shrink-0 sm:hidden" />
+          <p className="text-sm sm:text-base lg:text-lg font-black uppercase tracking-[0.06em] text-white leading-snug max-w-md">
+            {brandCopy.midBannerLeft}
+          </p>
+        </div>
+
+        {/* Gold right panel */}
+        <div
+          className="absolute inset-0 bg-gold flex items-center justify-end sm:justify-center pr-8 sm:pr-0 pl-[30%] sm:pl-[55%]"
+        >
+          <p className="text-lg sm:text-xl lg:text-2xl font-black uppercase tracking-[0.18em] text-white text-right sm:text-center">
+            {brandCopy.midBannerRight}
+          </p>
+        </div>
+      </section>
+    </PageShell>
   );
 }

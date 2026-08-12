@@ -25,9 +25,16 @@ type AdminTab = "products" | "brand" | "theme" | "contact";
 
 const categories: ProductCategory[] = [
   "T-Shirts",
-  "Sweatshirts",
+  "Tanks",
+  "Hoodies",
+  "Joggers",
+  "Shorts",
   "Headwear",
+  "Bags & Accessories",
+  "Sweatshirts",
   "Slides & Accessories",
+  "Performance",
+  "Accessories",
 ];
 
 const emptyProduct: Omit<Product, "id"> = {
@@ -81,7 +88,7 @@ export default function AdminPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-black pt-[104px] lg:pt-[112px]">
+    <div className="min-h-screen bg-black pt-[104px]">
       <div className="border-b border-white/10 bg-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -376,6 +383,20 @@ export default function AdminPage() {
                 value={settings.contact.phone}
                 onChange={(e) => {
                   updateContact({ phone: e.target.value });
+                  showSaved();
+                }}
+                className="w-full px-4 py-3 bg-surface border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-gold/50"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold tracking-wider uppercase text-white/40 mb-2">
+                Location
+              </label>
+              <input
+                type="text"
+                value={settings.contact.location}
+                onChange={(e) => {
+                  updateContact({ location: e.target.value });
                   showSaved();
                 }}
                 className="w-full px-4 py-3 bg-surface border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-gold/50"

@@ -11,6 +11,7 @@ export function StoreFooter() {
       statement={settings.brandCopy.footerStatement}
       email={settings.contact.email}
       phone={settings.contact.phone}
+      location={settings.contact.location}
     />
   );
 }

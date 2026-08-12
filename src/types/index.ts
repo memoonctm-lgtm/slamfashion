@@ -1,8 +1,15 @@
 export type ProductCategory =
   | "T-Shirts"
-  | "Sweatshirts"
+  | "Tanks"
+  | "Hoodies"
+  | "Joggers"
+  | "Shorts"
   | "Headwear"
-  | "Slides & Accessories";
+  | "Bags & Accessories"
+  | "Sweatshirts"
+  | "Slides & Accessories"
+  | "Performance"
+  | "Accessories";
 
 export interface ProductColor {
   name: string;
@@ -39,21 +46,56 @@ export interface BrandPillar {
   icon: "shield" | "dumbbell" | "lion" | "mountain" | "crown";
 }
 
+export interface CoreValue {
+  id: string;
+  title: string;
+  description: string;
+  icon: BrandPillar["icon"];
+}
+
+export interface CollectionCategory {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  slug: string;
+}
+
 export interface BrandCopy {
   heroHeadline: string;
   heroSubheadline: string;
   heroCta: string;
   essenceTitle: string;
   essenceText: string;
+  aboutHeroTitle: string;
+  aboutHeroText: string;
+  founderSectionTitle: string;
+  founderStory: string;
+  founderName: string;
+  founderRole: string;
+  founderSignature: string;
+  founderImage: string;
+  midBannerLeft: string;
+  midBannerRight: string;
   aboutTitle: string;
   aboutStory: string;
   aboutMission: string;
+  collectionsTitle: string;
+  collectionsSubheadline: string;
+  collectionsHeroImage: string;
+  contactTitle: string;
+  contactSubheadline: string;
+  contactHeroText: string;
+  contactTagline: string;
+  teamOrdersTitle: string;
+  teamOrdersText: string;
   footerStatement: string;
 }
 
 export interface ContactInfo {
   email: string;
   phone: string;
+  location: string;
 }
 
 export interface ThemeColors {
@@ -69,4 +111,6 @@ export interface StoreSettings {
   theme: ThemeColors;
   products: Product[];
   pillars: BrandPillar[];
+  coreValues: CoreValue[];
+  collections: CollectionCategory[];
 }

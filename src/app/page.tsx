@@ -3,188 +3,124 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Award, Truck, ShieldCheck } from "lucide-react";
-import { Hero } from "@/components/Hero";
-import { Marquee } from "@/components/Marquee";
-import { StatsBar } from "@/components/StatsBar";
-import { SectionHeader } from "@/components/SectionHeader";
-import { PillarCard } from "@/components/PillarCard";
-import { ProductCard } from "@/components/ProductCard";
-import { Testimonials, LookbookStrip } from "@/components/Testimonials";
-import { Button } from "@/components/Button";
+import { ArrowRight } from "lucide-react";
+import { PageShell } from "@/components/PageShell";
+import { ShopCatalogCard } from "@/components/ShopCatalogCard";
+import { PillarIconCard } from "@/components/PillarIconCard";
 import { useStore } from "@/context/StoreContext";
-
-const trustBadges = [
-  { icon: Award, label: "Premium Materials" },
-  { icon: ShieldCheck, label: "Quality Guaranteed" },
-  { icon: Truck, label: "Custom Orders" },
-];
 
 export default function HomePage() {
   const { settings, featuredProducts } = useStore();
   const { brandCopy, pillars } = settings;
 
   return (
-    <>
-      <div className="pt-[104px] lg:pt-[112px]">
-        <Hero
-          headline={brandCopy.heroHeadline}
-          subheadline={brandCopy.heroSubheadline}
-          cta={brandCopy.heroCta}
-        />
-      </div>
-
-      <Marquee />
-      <StatsBar />
-
-      <section id="essence" className="py-24 lg:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 grid-pattern opacity-20" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-              className="relative aspect-[4/5] rounded-sm overflow-hidden border border-white/10"
-            >
-              <Image
-                src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&q=80"
-                alt="S.L.A.M. brand essence"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute bottom-8 left-8 right-8">
-                <p className="gold-text text-2xl font-black tracking-tight">
-                  S.L.A.M.
-                </p>
-                <p className="text-white/50 text-sm mt-1 tracking-wider uppercase">
-                  Submit Like A Man
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <SectionHeader
-                eyebrow="Brand Essence"
-                title={brandCopy.essenceTitle}
-                description={brandCopy.essenceText}
-                align="left"
-                className="max-w-none"
-              />
-
-              <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {trustBadges.map((badge) => (
-                  <div
-                    key={badge.label}
-                    className="flex items-center gap-3 p-4 bg-surface border border-white/5 rounded-sm"
-                  >
-                    <badge.icon className="w-5 h-5 text-gold shrink-0" />
-                    <span className="text-[11px] font-bold tracking-wider uppercase text-white/50">
-                      {badge.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <section id="pillars" className="py-24 lg:py-32 bg-surface relative">
-        <div className="absolute inset-0 mesh-bg opacity-40" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            eyebrow="Our Pillars"
-            title="The S.L.A.M. Way"
-            description="Five principles that define everything we create and everything we stand for."
-            className="mb-16"
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 lg:gap-5">
-            {pillars.map((pillar, i) => (
-              <PillarCard key={pillar.id} pillar={pillar} index={i} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <LookbookStrip />
-
-      <section className="py-24 lg:py-32 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-14">
-            <SectionHeader
-              eyebrow="Collection"
-              title="Featured Apparel"
-              description="Hand-selected pieces that embody strength, faith, and premium street luxury."
-              align="left"
-              className="max-w-xl mb-0"
-            />
-            <Link
-              href="/shop"
-              className="inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.15em] uppercase text-gold hover:gap-3 transition-all shrink-0"
-            >
-              View All Products
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-6">
-            {featuredProducts.slice(0, 8).map((product, i) => (
-              <ProductCard key={product.id} product={product} index={i} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <Testimonials />
-
-      <section className="py-24 lg:py-32 relative overflow-hidden">
+    <PageShell>
+      {/* Hero */}
+      <section className="relative min-h-[calc(100vh-104px)] flex items-center border-b border-template overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=1920&q=80"
             alt=""
             fill
-            className="object-cover opacity-15"
+            className="object-cover opacity-25"
+            priority
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/95 to-black" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/95 to-black/70" />
         </div>
-        <div className="relative max-w-4xl mx-auto px-4 text-center">
+        <div className="relative max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-20 lg:py-32 w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="max-w-3xl"
           >
-            <p className="text-gold text-[11px] font-bold tracking-[0.35em] uppercase mb-6">
-              Join the Movement
+            <p className="label-caps text-gold mb-6">S.L.A.M. Activewear</p>
+            <h1 className="heading-xl text-4xl sm:text-5xl lg:text-7xl text-white">
+              {brandCopy.heroHeadline}
+            </h1>
+            <p className="mt-8 text-lg text-muted leading-relaxed max-w-xl">
+              {brandCopy.heroSubheadline}
             </p>
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
-              Ready to <span className="gold-text">Submit</span>?
-            </h2>
-            <p className="mt-6 text-white/50 max-w-lg mx-auto text-lg leading-relaxed">
-              Wear the message. Lead with faith. Live with power. Your wardrobe
-              should reflect your purpose.
-            </p>
-            <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/shop" size="lg">
-                Shop Collection
-              </Button>
-              <Button href="/contact" variant="outline" size="lg">
-                Custom Order
-              </Button>
+            <div className="mt-10 flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/shop"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 btn-gold text-xs rounded-sm"
+              >
+                {brandCopy.heroCta}
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/collections"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-template text-white text-xs font-bold tracking-[0.15em] uppercase rounded-sm hover:border-gold/40 transition-colors"
+              >
+                View Collections
+              </Link>
             </div>
           </motion.div>
         </div>
       </section>
-    </>
+
+      {/* Pillars preview */}
+      <section className="py-20 lg:py-28 border-b border-template bg-surface">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-12">
+            <div>
+              <h2 className="heading-section text-xl sm:text-2xl text-white">
+                The S.L.A.M. Way
+              </h2>
+              <p className="mt-3 text-muted max-w-lg">
+                {brandCopy.essenceText}
+              </p>
+            </div>
+            <Link
+              href="/about"
+              className="text-[10px] font-bold tracking-[0.2em] uppercase text-gold hover:underline"
+            >
+              Learn More →
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {pillars.map((pillar, i) => (
+              <PillarIconCard key={pillar.id} pillar={pillar} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured products */}
+      <section className="py-20 lg:py-28 border-b border-template">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16">
+          <div className="flex justify-between items-end gap-4 mb-12">
+            <h2 className="heading-section text-xl sm:text-2xl text-white">
+              Featured Apparel
+            </h2>
+            <Link
+              href="/shop"
+              className="text-[10px] font-bold tracking-[0.2em] uppercase text-gold"
+            >
+              Shop All →
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+            {featuredProducts.slice(0, 6).map((product, i) => (
+              <ShopCatalogCard key={product.id} product={product} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Gold banner */}
+      <section className="bg-gold">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-sm font-black tracking-[0.08em] uppercase text-black">
+            {brandCopy.midBannerLeft}
+          </p>
+          <p className="text-sm font-black tracking-[0.2em] uppercase text-black">
+            {brandCopy.midBannerRight}
+          </p>
+        </div>
+      </section>
+    </PageShell>
   );
 }
