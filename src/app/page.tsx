@@ -52,23 +52,22 @@ export default function HomePage() {
               </motion.div>
             </div>
 
-            <div className="relative min-h-[360px] lg:min-h-0 bg-[#0A0A0A] overflow-hidden">
+            <div className="relative min-h-[480px] sm:min-h-[560px] lg:min-h-0 bg-[#0A0A0A] overflow-hidden flex items-center justify-center">
               <Monogram
                 size={400}
                 variant="watermark"
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 opacity-100 pointer-events-none z-[1]"
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 opacity-40 pointer-events-none z-[1]"
               />
               <Image
                 src={brandCopy.heroImage}
                 alt="S.L.A.M. premium t-shirt collection"
                 fill
-                unoptimized
-                className="object-cover object-center z-[2]"
+                className="object-contain object-center z-[2]"
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 priority
               />
               <div
-                className="absolute inset-0 z-[3] bg-gradient-to-r from-black via-black/50 to-transparent lg:from-black lg:via-black/30 lg:to-transparent"
+                className="absolute inset-0 z-[3] pointer-events-none bg-gradient-to-r from-black/70 via-black/15 to-transparent lg:from-black/50 lg:via-transparent lg:to-transparent"
               />
             </div>
           </div>

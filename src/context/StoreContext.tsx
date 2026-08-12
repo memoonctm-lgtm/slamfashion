@@ -46,12 +46,14 @@ const INVALID_HERO_IMAGE_IDS = [
 function mergeBrandCopy(stored?: Partial<BrandCopy>): BrandCopy {
   const merged = { ...DEFAULT_SETTINGS.brandCopy, ...stored };
   const heroImage = merged.heroImage?.trim();
+  const defaultHero = DEFAULT_SETTINGS.brandCopy.heroImage;
 
   if (
     !heroImage ||
+    heroImage.includes("images.unsplash.com") ||
     INVALID_HERO_IMAGE_IDS.some((id) => heroImage.includes(id))
   ) {
-    merged.heroImage = DEFAULT_SETTINGS.brandCopy.heroImage;
+    merged.heroImage = defaultHero;
   }
 
   return merged;
