@@ -9,10 +9,12 @@ import {
 
 export async function POST(request: NextRequest) {
   if (!isAuthConfigured()) {
+    const isProduction = process.env.NODE_ENV === "production";
     return NextResponse.json(
       {
-        error:
-          "Admin login is not configured. Add ADMIN_PASSWORD to .env.local in the project root, then restart the dev server (npm run dev).",
+        error: isProduction
+          ? "Admin login is not configured on the server. In Vercel: Project → Settings → Environment Variables, add ADMIN_PASSWORD and ADMIN_SECRET, then redeploy."
+          : "Admin login is not configured. Add ADMIN_PASSWORD to .env.local in the project root, then restart the dev server (npm run dev).",
       },
       { status: 503 }
     );
