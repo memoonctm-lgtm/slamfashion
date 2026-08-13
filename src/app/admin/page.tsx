@@ -19,9 +19,20 @@ import {
 import { motion } from "framer-motion";
 import { useStore } from "@/context/StoreContext";
 import { useAuth } from "@/context/AuthContext";
-import type { Product, ProductCategory } from "@/types";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
+import type { BrandCopy, Product, ProductCategory } from "@/types";
 
 type AdminTab = "products" | "brand" | "theme" | "contact";
+
+const BRAND_IMAGE_FIELDS = new Set<keyof BrandCopy>([
+  "heroImage",
+  "founderImage",
+  "collectionsHeroImage",
+]);
+
+function brandImageFolder(key: keyof BrandCopy): "brand" | "collections" {
+  return key === "collectionsHeroImage" ? "collections" : "brand";
+}
 
 const categories: ProductCategory[] = [
   "T-Shirts",
@@ -264,29 +275,44 @@ export default function AdminPage() {
               ][]
             ).map(([key, value]) => (
               <div key={key}>
-                <label className="block text-xs font-semibold tracking-wider uppercase text-white/40 mb-2">
-                  {key.replace(/([A-Z])/g, " $1").trim()}
-                </label>
-                {value.length > 100 ? (
-                  <textarea
+                {BRAND_IMAGE_FIELDS.has(key) ? (
+                  <ImageUploadField
+                    label={key.replace(/([A-Z])/g, " $1").trim()}
                     value={value}
-                    onChange={(e) => {
-                      updateBrandCopy({ [key]: e.target.value });
+                    folder={brandImageFolder(key)}
+                    onChange={(url) => {
+                      updateBrandCopy({ [key]: url });
                       showSaved();
                     }}
-                    rows={3}
-                    className="w-full px-4 py-3 bg-surface border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-gold/50 resize-none"
+                    hint="Upload an image or paste a URL."
                   />
                 ) : (
-                  <input
-                    type="text"
-                    value={value}
-                    onChange={(e) => {
-                      updateBrandCopy({ [key]: e.target.value });
-                      showSaved();
-                    }}
-                    className="w-full px-4 py-3 bg-surface border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-gold/50"
-                  />
+                  <>
+                    <label className="block text-xs font-semibold tracking-wider uppercase text-white/40 mb-2">
+                      {key.replace(/([A-Z])/g, " $1").trim()}
+                    </label>
+                    {value.length > 100 ? (
+                      <textarea
+                        value={value}
+                        onChange={(e) => {
+                          updateBrandCopy({ [key]: e.target.value });
+                          showSaved();
+                        }}
+                        rows={3}
+                        className="w-full px-4 py-3 bg-surface border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-gold/50 resize-none"
+                      />
+                    ) : (
+                      <input
+                        type="text"
+                        value={value}
+                        onChange={(e) => {
+                          updateBrandCopy({ [key]: e.target.value });
+                          showSaved();
+                        }}
+                        className="w-full px-4 py-3 bg-surface border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-gold/50"
+                      />
+                    )}
+                  </>
                 )}
               </div>
             ))}
@@ -471,15 +497,12 @@ function ProductForm({
           />
         </div>
         <div className="sm:col-span-2">
-          <label className="block text-xs font-semibold tracking-wider uppercase text-white/40 mb-1">
-            Image URL
-          </label>
-          <input
-            type="url"
+          <ImageUploadField
+            label="Product Image"
             value={form.image}
-            onChange={(e) => setForm({ ...form, image: e.target.value })}
-            className="w-full px-4 py-2.5 bg-surface-light border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-gold/50"
-            placeholder="https://..."
+            folder="products"
+            onChange={(url) => setForm({ ...form, image: url })}
+            hint="Upload a photo from your computer or paste an image URL."
           />
         </div>
         <div className="sm:col-span-2">

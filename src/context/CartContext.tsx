@@ -44,8 +44,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setItems(loadCart());
-    setIsLoaded(true);
+    queueMicrotask(() => {
+      setItems(loadCart());
+      setIsLoaded(true);
+    });
   }, []);
 
   useEffect(() => {

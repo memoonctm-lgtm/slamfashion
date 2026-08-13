@@ -8,8 +8,6 @@ import type { Product } from "@/types";
 import { useCart } from "@/context/CartContext";
 import { useProductModal } from "@/context/ProductModalContext";
 import { formatVariants } from "@/lib/utils";
-import { PillarsHorizontalBar } from "./PillarsHorizontalBar";
-import { useStore } from "@/context/StoreContext";
 
 interface ShopCatalogCardProps {
   product: Product;
@@ -35,10 +33,8 @@ export function ShopCatalogCard({ product, index = 0 }: ShopCatalogCardProps) {
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
   };
- const { settings } = useStore();
-  const { brandCopy, collections, pillars } = settings;
+
   return (
-    <>
     <motion.article
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -100,8 +96,5 @@ export function ShopCatalogCard({ product, index = 0 }: ShopCatalogCardProps) {
         </div>
       </div>
     </motion.article>
-    {/* <PillarsHorizontalBar pillars={pillars} /> */}
-    </>
-
   );
 }

@@ -94,8 +94,10 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const { isAdmin } = useAuth();
 
   useEffect(() => {
-    setSettings(loadSettings());
-    setIsLoaded(true);
+    queueMicrotask(() => {
+      setSettings(loadSettings());
+      setIsLoaded(true);
+    });
   }, []);
 
   useEffect(() => {

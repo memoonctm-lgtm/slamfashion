@@ -23,6 +23,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    let cancelled = false;
+
+    void (async () => {
+      try {
+        const res = await fetch("/api/admin/session");
+        const data = (await res.json()) as { authenticated: boolean };
+        if (!cancelled) setIsAdmin(data.authenticated);
+      } catch {
+        if (!cancelled) setIsAdmin(false);
+      } finally {
+        if (!cancelled) setIsLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const refreshSession = useCallback(async () => {
     try {
       const res = await fetch("/api/admin/session");
@@ -34,10 +54,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setIsLoading(false);
     }
   }, []);
-
-  useEffect(() => {
-    refreshSession();
-  }, [refreshSession]);
 
   const login = useCallback(async (password: string) => {
     try {

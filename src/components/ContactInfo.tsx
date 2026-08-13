@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { SectionTitle } from "./SectionTitle";
 import { formatPhone } from "@/lib/utils";
