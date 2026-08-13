@@ -3,22 +3,17 @@ import { SESSION_DURATION_MS } from "./auth-constants";
 
 export { SESSION_COOKIE, SESSION_DURATION_MS } from "./auth-constants";
 
-function getSecret(): string {
-  const secret = process.env.ADMIN_SECRET || process.env.ADMIN_PASSWORD;
-  if (!secret) {
-    throw new Error(
-      "ADMIN_SECRET or ADMIN_PASSWORD must be set in environment variables"
-    );
-  }
-  return secret;
+export function isAuthConfigured(): boolean {
+  return Boolean(process.env.ADMIN_PASSWORD?.trim());
 }
 
-export function getAdminPassword(): string {
-  const password = process.env.ADMIN_PASSWORD;
-  if (!password) {
-    throw new Error("ADMIN_PASSWORD must be set in environment variables");
+function getSecret(): string {
+  const secret =
+    process.env.ADMIN_SECRET?.trim() || process.env.ADMIN_PASSWORD?.trim();
+  if (!secret) {
+    throw new Error("AUTH_NOT_CONFIGURED");
   }
-  return password;
+  return secret;
 }
 
 export function createSessionToken(): string {
@@ -31,6 +26,8 @@ export function createSessionToken(): string {
 
 export function verifySessionToken(token: string): boolean {
   try {
+    if (!isAuthConfigured()) return false;
+
     const [payloadB64, signature] = token.split(".");
     if (!payloadB64 || !signature) return false;
 
@@ -52,7 +49,9 @@ export function verifySessionToken(token: string): boolean {
 }
 
 export function verifyPassword(input: string): boolean {
-  const expected = getAdminPassword();
+  const expected = process.env.ADMIN_PASSWORD?.trim();
+  if (!expected) return false;
+
   const inputBuffer = Buffer.from(input);
   const expectedBuffer = Buffer.from(expected);
   if (inputBuffer.length !== expectedBuffer.length) return false;
