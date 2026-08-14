@@ -23,7 +23,7 @@ export default function CollectionsPage() {
               className="
             relative
             grid
-            h-[305px]
+            h-[505px]
             grid-cols-[51.5%_48.5%]
             overflow-hidden
           "
@@ -111,7 +111,7 @@ export default function CollectionsPage() {
                   className="
                 z-[2]
                 object-cover
-                object-[center_top]
+                  
               "
                 />
 
